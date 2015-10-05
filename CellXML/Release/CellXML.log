@@ -1,0 +1,38 @@
+﻿Build started 10/5/2015 4:20:24 PM.
+Project "C:\Users\forensic\Desktop\CellXML\CellXML\CellXML.vcxproj" on node 2 (Build target(s)).
+ClCompile:
+  C:\Program Files\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Release\\" /Fd"Release\vc140.pdb" /Gd /TC /analyze- /errorReport:prompt CellXML.c
+  CellXML.c
+CellXML.c(355): warning C4047: 'function': 'PDWORD' differs in levels of indirection from 'DWORD'
+CellXML.c(355): warning C4024: 'ParseValueData': different types for formal and actual parameter 2
+CellXML.c(449): warning C4047: '=': 'DWORD' differs in levels of indirection from 'PDWORD'
+CellXML.c(569): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+CellXML.c(581): warning C4047: '=': 'DWORD' differs in levels of indirection from 'PDWORD'
+CellXML.c(593): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+CellXML.c(598): warning C4996: 'wcscat': This function or variable may be unsafe. Consider using wcscat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+CellXML.c(610): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+CellXML.c(624): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+CellXML.c(647): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+CellXML.c(652): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+CellXML.c(718): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+CellXML.c(630): warning C4996: 'wcsncpy': This function or variable may be unsafe. Consider using wcsncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files\Windows Kits\10\Include\10.0.10150.0\ucrt\corecrt_wstring.h(204): note: see declaration of 'wcsncpy'
+CellXML.c(678): warning C4996: '_snwprintf': This function or variable may be unsafe. Consider using _snwprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files\Windows Kits\10\Include\10.0.10150.0\ucrt\corecrt_wstdio.h(1665): note: see declaration of '_snwprintf'
+CellXML.c(709): warning C4996: '_snwprintf': This function or variable may be unsafe. Consider using _snwprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files\Windows Kits\10\Include\10.0.10150.0\ucrt\corecrt_wstdio.h(1665): note: see declaration of '_snwprintf'
+CellXML.c(723): warning C4996: '_snwprintf': This function or variable may be unsafe. Consider using _snwprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files\Windows Kits\10\Include\10.0.10150.0\ucrt\corecrt_wstdio.h(1665): note: see declaration of '_snwprintf'
+Link:
+  C:\Program Files\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\forensic\Desktop\CellXML\Release\CellXML.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\forensic\Desktop\CellXML\Release\CellXML.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG:incremental /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\forensic\Desktop\CellXML\Release\CellXML.lib" /MACHINE:X86 /SAFESEH Release\CellXML.obj
+  Generating code
+  3 of 17 functions (17.6%) were compiled, the rest were copied from previous compilation.
+  Finished generating code
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  CellXML.vcxproj -> C:\Users\forensic\Desktop\CellXML\Release\CellXML.exe
+Done Building Project "C:\Users\forensic\Desktop\CellXML\CellXML\CellXML.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.59
