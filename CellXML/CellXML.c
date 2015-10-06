@@ -128,8 +128,9 @@ int wmain(DWORD argc, TCHAR *argv[])
 			(_tcscmp(argv[1], _T("--help")) == 0) || 
 			(_tcscmp(argv[1], _T("/?")) == 0)) 
 		{
-			printf("HELP MENU\n");
-			return 0;
+		    // Print help menu
+		    printHelpMenu();
+		    return 0;
 		}
 
 		// Scan the command line arguments and set booleans
@@ -242,13 +243,13 @@ VOID printHelpMenu()
 	printf("             is modelled after the RegXML project.\n\n");
 	printf("      Usage: CellXML.exe [options] hive-file\n\n");
 	printf("   Examples: 1) Print Registry hive file to standard output (stdout):\n");
-	printf("                 HiveXML.exe hive-file\n");
+	printf("                 CellXML.exe hive-file\n");
 	printf("             2) Manually specify the hive root key:\n");
-	printf("                 HiveXML.exe -r $$$PROTO.HIV hive-file\n");
+	printf("                 CellXML.exe -r $$$PROTO.HIV hive-file\n");
 	printf("             3) Automatically determine hive root key (experimental):\n");
-	printf("                 HiveXML.exe -a hive-file\n");
+	printf("                 CellXML.exe -a hive-file\n");
 	printf("             4) Direct standard output to an XML file:\n");
-	printf("                 HiveXML.exe hive-file > output.xml\n\n");
+	printf("                 CellXML.exe hive-file > output.xml\n\n");
 }
 
 
