@@ -20,13 +20,13 @@ The following list provides some examples of CellXML usage:
 
 ## Offline Registry Library and offreg.dll
 
-CellXML uses the Offline Registry Library (offreg.dll) to aid in parsing the binary structure of the Windows Registry. According to (https://msdn.microsoft.com/en-us/library/ee210757%28v=vs.85%29.aspx "Microsoft") the offline registry library (offreg.dll) is used to modify a registry hive outside the active system registry. 
+CellXML uses the Offline Registry Library (offreg.dll) to aid in parsing the binary structure of the Windows Registry. According to [Microsoft](https://msdn.microsoft.com/en-us/library/ee210757%28v=vs.85%29.aspx "Microsoft") the offline registry library (offreg.dll) is used to modify a registry hive outside the active system registry. 
 
 The offline registry library is provided as a binary redistributable dynamic-link library (DLL). The offreg.dll is provided in this repository for 32 bit and 64 bit architectures.
 
 ## Windows Operating System Support
 
-CellXML has been tested on Microsoft Windows 7 (32-bit). Testing has not been performed on any other Windows versions. According to (https://msdn.microsoft.com/en-us/library/ee210757%28v=vs.85%29.aspx "Microsoft") the library runs on the following versions of Windows: 
+CellXML has been tested on Microsoft Windows 7 (32-bit). Testing has not been performed on any other Windows versions. According to [Microsoft](https://msdn.microsoft.com/en-us/library/ee210757%28v=vs.85%29.aspx "Microsoft") the library runs on the following versions of Windows: 
 
 1. Windows XP
 2. Windows Server 2003
@@ -39,7 +39,7 @@ It is probable that newer versions of Microsoft Windows (8, 8.1 and 10) may supp
 
 ## Windows Registry Hive File Support
 
-According to (https://msdn.microsoft.com/en-us/library/ee210757%28v=vs.85%29.aspx "Microsoft") the offline registry library (offreg.dll) supports registry hive formats starting with Windows XP. Therefore, CellXML **does not support** processing offline Registry hive files taken from versions of Microsoft Windows **prior to Windows XP**.
+According to [Microsoft](https://msdn.microsoft.com/en-us/library/ee210757%28v=vs.85%29.aspx "Microsoft") the offline registry library (offreg.dll) supports registry hive formats starting with Windows XP. Therefore, CellXML **does not support** processing offline Registry hive files taken from versions of Microsoft Windows **prior to Windows XP**.
 
 ## Compiling Intructions
 
