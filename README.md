@@ -1,5 +1,5 @@
 # CellXML
-CellXML.exe is a simple portable Windows application that parses the binary structure of an offline Windows Registry hive file and converts it to an XML format. The output XML structure is based on RegXML (see http://forensicswiki.org/wiki/RegXML). 
+CellXML.exe is a simple portable Windows application that parses the binary structure of an offline Windows Registry hive file and converts it to an XML format. The output XML structure is based on [RegXML](http://forensicswiki.org/wiki/RegXML "Forensic Wiki"). 
 
 ## CellXML Usage Examples
 
@@ -10,13 +10,13 @@ The general usage format for CellXML is:
 The following list provides some examples of CellXML usage:
 
 1. Print Registry hive file to standard output (stdout):
-..* `CellXML.exe hive-file`
+  * `CellXML.exe hive-file`
 2. Manually specify the hive root key:
-..* `CellXML.exe -r $$$PROTO.HIV hive-file`
+  * `CellXML.exe -r $$$PROTO.HIV hive-file`
 3. Automatically determine hive root key (experimental):
-..* `CellXML.exe -a hive-file`
+  * `CellXML.exe -a hive-file`
 4. Direct standard output to an XML file:
-..* `CellXML.exe hive-file > output.xml`
+  * `CellXML.exe hive-file > output.xml`
 
 ## Offline Registry Library and offreg.dll
 
