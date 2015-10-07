@@ -1,6 +1,6 @@
 version 1.1.0 (November 2015)
-    Help menu - fix (-h and /?) to display help menu
-    Help menu - fix old HiveXML naming convention in arguments
+    DONE    Help menu - fix (-h and /?) to display help menu
+    DONE    Help menu - fix old HiveXML naming convention in arguments
     Add information about sample hive files and license (Digital Corpora)
     Readme - add more detailed information about compilation
     TransformData - fix arguments involving pointers
