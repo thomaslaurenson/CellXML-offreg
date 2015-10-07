@@ -43,15 +43,17 @@ According to [Microsoft](https://msdn.microsoft.com/en-us/library/ee210757%28v=v
 
 ## Sample Registry Hive Files
 
-Three hive files are distributed with the CellXML project source code and can be found in the **sample-hives** folder. The sample hive files are included to provide testing data. The hive files have been taken from the [Digital Corpora](http://digitalcorpora.org/ "Digital Corpora") website, specifically the [m57 Patents](http://digitalcorpora.org/corp/nps/scenarios/2009-m57-patents/ "Digital Corpora") scenario. One forensic image, [charlie-2009-11-12start.E01](http://digitalcorpora.org/corp/nps/scenarios/2009-m57-patents/drives-redacted/charlie-2009-11-12start.E01 "charlie-2009-11-12start.E01") was processed and the three hive files extracted using the [HiveExtractor.py](https://github.com/thomaslaurenson/DFXMLTools/tree/master/HiveExtractor "HiveExtractor.py") tool. The following hive files are from a Windows XP system:
+Three hive files are distributed with the CellXML project source code and can be found in the **sample-hives** folder. The sample hive files are included to provide testing data. The hive files have been taken from the [Digital Corpora](http://digitalcorpora.org/ "Digital Corpora") website, specifically the [m57 Patents](http://digitalcorpora.org/corp/nps/scenarios/2009-m57-patents/ "Digital Corpora") scenario. One forensic image, [charlie-2009-11-12start.E01](http://digitalcorpora.org/corp/nps/scenarios/2009-m57-patents/drives-redacted/charlie-2009-11-12start.E01 "charlie-2009-11-12start.E01"), was processed and the three hive files extracted using the [HiveExtractor.py](https://github.com/thomaslaurenson/DFXMLTools/tree/master/HiveExtractor "HiveExtractor.py") tool. The following hive files are from a Windows XP system:
 
-1. NTUSER.DAT   aeabc1b46b86cdc7ed0ac6598ff2bdb0
-2. SOFTWARE     c76de38c5e5557f59078b5317705fba5
-3. SYSTEM       151ebb9b38cf06f018c4ed1fdf69e2de
+| Hive file   | MD5 hash value                   |
+| ------------|----------------------------------|
+| NTUSER.DAT  | aeabc1b46b86cdc7ed0ac6598ff2bdb0 |
+| SOFTWARE    | c76de38c5e5557f59078b5317705fba5 |
+| SYSTEM      | 151ebb9b38cf06f018c4ed1fdf69e2de |
 
 #### License Details:
 
-The [m57 Patents license](https://github.com/thomaslaurenson/DFXMLTools/tree/master/HiveExtractor "m57 Patents license") specifies the following conditions:
+The [m57 Patents license](http://digitalcorpora.org/corp/nps/scenarios/2009-m57-patents/docs/License "m57 Patents license") specifies the following conditions:
 
 > Contains information derived from copyrighted materials. For use only for research, education, training only, and the production of educational materials. All other uses require the permission of the copyright holders.
 
