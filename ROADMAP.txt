@@ -1,15 +1,24 @@
 version 1.1.0 (November 2015)
     DONE    Help menu - fix (-h and /?) to display help menu
     DONE    Help menu - fix old HiveXML naming convention in arguments
-    Add information about sample hive files and license (Digital Corpora)
+    DONE    Add information about sample hive files and license (Digital Corpora)
+    Readme - add information of CellXML output structure
     Readme - add more detailed information about compilation
+    sample-hives - include XML output for each hive file in the sample-hives directory
+    Readme - add information about the XML for each sample-hive
+    sample-hives - add in a snippet XML example of the CellXML output format
     TransformData - fix arguments involving pointers
+    Remove endianness - unneeded as all target system are little endian
+    Registry data types:
+        Remove REG_DWORD_LITTLE_ENDIAN (this is just a DWORD)
+        Remove REG_QWORD_LITTLE_ENDIAN (this is just a QWORD)
+        Check that REG_NONE is outputing in binary (same as REG_BINARY)
     Test on more Registry hive files from different Windows versions:
         Windows Vista
         Windows 7
         Windows 8
         Windows 10
-    After done: create GitHub release
+    After done: create GitHub release 1.1.0
     
 
 version 1.2.0 (December 2015)
@@ -17,3 +26,4 @@ version 1.2.0 (December 2015)
     Update VS project to:
         Create 32 and 64 bit builds
         Dynamic linking of offreg.dll for 32 and 64 bit builds
+    After done: create GitHub release 1.1.0
