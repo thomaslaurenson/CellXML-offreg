@@ -1,41 +1,5 @@
-﻿Build started 10/5/2015 4:22:29 PM.
-Project "C:\Users\forensic\Desktop\CellXML\CellXML\CellXML.vcxproj" on node 2 (Build target(s)).
-ClCompile:
-  C:\Program Files\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TC /analyze- /errorReport:prompt CellXML.c
-  CellXML.c
-c:\users\forensic\desktop\cellxml\cellxml\cellxml.c(355): warning C4047: 'function': 'PDWORD' differs in levels of indirection from 'DWORD'
-c:\users\forensic\desktop\cellxml\cellxml\cellxml.c(355): warning C4024: 'ParseValueData': different types for formal and actual parameter 2
-c:\users\forensic\desktop\cellxml\cellxml\cellxml.c(449): warning C4047: '=': 'DWORD' differs in levels of indirection from 'PDWORD'
-c:\users\forensic\desktop\cellxml\cellxml\cellxml.c(581): warning C4047: '=': 'DWORD' differs in levels of indirection from 'PDWORD'
-c:\users\forensic\desktop\cellxml\cellxml\cellxml.c(569): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files\windows kits\10\include\10.0.10150.0\ucrt\corecrt_wstring.h(121): note: see declaration of 'wcscpy'
-c:\users\forensic\desktop\cellxml\cellxml\cellxml.c(593): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files\windows kits\10\include\10.0.10150.0\ucrt\corecrt_wstring.h(121): note: see declaration of 'wcscpy'
-c:\users\forensic\desktop\cellxml\cellxml\cellxml.c(598): warning C4996: 'wcscat': This function or variable may be unsafe. Consider using wcscat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files\windows kits\10\include\10.0.10150.0\ucrt\corecrt_wstring.h(101): note: see declaration of 'wcscat'
-c:\users\forensic\desktop\cellxml\cellxml\cellxml.c(610): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files\windows kits\10\include\10.0.10150.0\ucrt\corecrt_wstring.h(121): note: see declaration of 'wcscpy'
-c:\users\forensic\desktop\cellxml\cellxml\cellxml.c(624): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files\windows kits\10\include\10.0.10150.0\ucrt\corecrt_wstring.h(121): note: see declaration of 'wcscpy'
-c:\users\forensic\desktop\cellxml\cellxml\cellxml.c(630): warning C4996: 'wcsncpy': This function or variable may be unsafe. Consider using wcsncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files\windows kits\10\include\10.0.10150.0\ucrt\corecrt_wstring.h(204): note: see declaration of 'wcsncpy'
-c:\users\forensic\desktop\cellxml\cellxml\cellxml.c(647): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files\windows kits\10\include\10.0.10150.0\ucrt\corecrt_wstring.h(121): note: see declaration of 'wcscpy'
-c:\users\forensic\desktop\cellxml\cellxml\cellxml.c(652): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files\windows kits\10\include\10.0.10150.0\ucrt\corecrt_wstring.h(121): note: see declaration of 'wcscpy'
-c:\users\forensic\desktop\cellxml\cellxml\cellxml.c(678): warning C4996: '_snwprintf': This function or variable may be unsafe. Consider using _snwprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files\windows kits\10\include\10.0.10150.0\ucrt\corecrt_wstdio.h(1665): note: see declaration of '_snwprintf'
-c:\users\forensic\desktop\cellxml\cellxml\cellxml.c(709): warning C4996: '_snwprintf': This function or variable may be unsafe. Consider using _snwprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files\windows kits\10\include\10.0.10150.0\ucrt\corecrt_wstdio.h(1665): note: see declaration of '_snwprintf'
-c:\users\forensic\desktop\cellxml\cellxml\cellxml.c(718): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files\windows kits\10\include\10.0.10150.0\ucrt\corecrt_wstring.h(121): note: see declaration of 'wcscpy'
-c:\users\forensic\desktop\cellxml\cellxml\cellxml.c(721): warning C4996: '_snwprintf': This function or variable may be unsafe. Consider using _snwprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files\windows kits\10\include\10.0.10150.0\ucrt\corecrt_wstdio.h(1665): note: see declaration of '_snwprintf'
-Link:
-  C:\Program Files\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\forensic\Desktop\CellXML\Debug\CellXML.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\forensic\Desktop\CellXML\Debug\CellXML.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\forensic\Desktop\CellXML\Debug\CellXML.lib" /MACHINE:X86 Debug\CellXML.obj
-  CellXML.vcxproj -> C:\Users\forensic\Desktop\CellXML\Debug\CellXML.exe
-Done Building Project "C:\Users\forensic\Desktop\CellXML\CellXML\CellXML.vcxproj" (Build target(s)).
+﻿Build started 10/9/2015 10:43:06 AM.
 
 Build succeeded.
 
-Time Elapsed 00:00:01.31
+Time Elapsed 00:00:00.00

@@ -26,17 +26,6 @@ along with HiveXML.  If not, see <http://www.gnu.org/licenses/>.
 #pragma comment (lib, "offreg.lib")
 
 // ----------------------------------------------------------------------
-// Definition for endianness
-// ----------------------------------------------------------------------
-#if !defined(__LITTLE_ENDIAN__) && !defined(__BIG_ENDIAN__)
-#   if (defined(_M_IA64) || defined(__ia64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__amd64__) || defined(_M_IX86) || defined(_X86_) || defined(__i386__) || defined(__i486__) || defined(__i586__) || defined(__i686__))
-#       define __LITTLE_ENDIAN__ 1
-#   else
-#       error "Cannot determine Endianness"
-#   endif
-#endif
-
-// ----------------------------------------------------------------------
 // Definition for QWORD (not yet defined globally in WinDef.h)
 // ----------------------------------------------------------------------
 #ifndef QWORD
@@ -158,6 +147,13 @@ int wmain(DWORD argc, TCHAR *argv[])
 	HiveFileName = MYALLOC0(100 * sizeof(TCHAR));
 	_tcscat_s(HiveFileName, 100, argv[argc - 1]);
 
+	// Check if the user supplied Registry hive file exists
+	if (GetFileAttributesW(HiveFileName) == INVALID_FILE_ATTRIBUTES) {
+		printf("\n>>> ERROR: File appears to not exist. Check file input...\n");
+		printf("  > System error code: %d\n", GetLastError());
+		return -1;
+	}
+	
 	// Check if we have a valid Registry hive file
 	// Use OROpenHive to check, then close hive if no errors
 	if (OROpenHive(HiveFileName, &OffHive) != ERROR_SUCCESS) {
@@ -171,30 +167,32 @@ int wmain(DWORD argc, TCHAR *argv[])
 
 	// Determine how we are going to get the rootkey
 	if (tryGetRootKey) {
+		// Try an automatically determine the hive root key
 		HiveRootKey = determineRootKey(HiveFileName);
 	}
 	else if (userSuppliedRootKey) {
 		// The root key has been specified by "-r"
 		HiveRootKey = argv[2];
 	}
-	else {
+	else 
+	{
 		// Use the filename provided
 		LPTSTR lpszBaseName;
 		LPTSTR lpszFileExt;
-		lpszBaseName = MYALLOC0(MAX_PATH);
-		lpszFileExt = MYALLOC0(MAX_PATH);
+		lpszBaseName = MYALLOC0(MAX_PATH * sizeof(TCHAR));
+		lpszFileExt = MYALLOC0(MAX_PATH * sizeof(TCHAR));
 		_tsplitpath_s(HiveFileName, 
 			NULL, 0,
 			NULL, 0,
 			lpszBaseName, MAX_PATH,
 			lpszFileExt, MAX_PATH);
-		HiveRootKey = MYALLOC0(MAX_PATH);
+		HiveRootKey = MYALLOC0(MAX_PATH * sizeof(TCHAR));
 		_tcscat_s(HiveRootKey, MAX_PATH, lpszBaseName);
 		_tcscat_s(HiveRootKey, MAX_PATH, lpszFileExt);
 	}
 
 	// Open the offline Registry hive file
-	// no error check needed, it has already been validated
+	// No error check needed, it has already been validated
 	OROpenHive(HiveFileName, &OffHive);
 
 	// Print CellXML header
@@ -353,7 +351,7 @@ int EnumerateKeys(ORHKEY OffKey, LPWSTR szKeyName)
 
 		// Determine Registry value data
 		LPTSTR lpszValueData;
-		lpszValueData = ParseValueData(pData, cbData, dwType);
+		lpszValueData = ParseValueData(pData, &cbData, dwType);
 		
 		// We have all the Registry value details, write out using DFXML/RegXML syntax
 		printf("  <cellobject>\n");
@@ -404,27 +402,19 @@ int EnumerateKeys(ORHKEY OffKey, LPWSTR szKeyName)
 LPTSTR GetValueDataType(DWORD nTypeCode)
 {
 	LPTSTR lpszDataType;
-	lpszDataType = MYALLOC0(50 * sizeof(wchar_t));
-	if (nTypeCode == REG_NONE) { lpszDataType = TEXT("REG_NONE"); } //CHECK
-	// Strings
-	else if (nTypeCode == REG_SZ) { lpszDataType = TEXT("REG_SZ"); } //CHECK
+	lpszDataType = MYALLOC0(40 * sizeof(wchar_t));
+	if (nTypeCode == REG_NONE) { lpszDataType = TEXT("REG_NONE"); }
+	else if (nTypeCode == REG_SZ) { lpszDataType = TEXT("REG_SZ"); }
 	else if (nTypeCode == REG_EXPAND_SZ) { lpszDataType = TEXT("REG_EXPAND_SZ"); }
-	else if (nTypeCode == REG_MULTI_SZ) { lpszDataType = TEXT("REG_MULTI_SZ"); }
-	// DWORDs
-	else if (nTypeCode == REG_DWORD) { lpszDataType = TEXT("REG_DWORD"); }
-	else if (nTypeCode == REG_DWORD_LITTLE_ENDIAN) { lpszDataType = TEXT("REG_DWORD_LITTLE_ENDIAN"); }
-	else if (nTypeCode == REG_DWORD_BIG_ENDIAN) { lpszDataType = TEXT("REG_DWORD_BIG_ENDIAN"); }
-	// QWORD (64 bit number)
-	else if (nTypeCode == REG_QWORD) { lpszDataType = TEXT("REG_QWORD"); }
-	else if (nTypeCode == REG_QWORD_LITTLE_ENDIAN) { lpszDataType = TEXT("REG_QWORD_LITTLE_ENDIAN"); }
-	// BINARY
 	else if (nTypeCode == REG_BINARY) { lpszDataType = TEXT("REG_BINARY"); }
-	// LINK
+	else if (nTypeCode == REG_DWORD) { lpszDataType = TEXT("REG_DWORD"); }
+	else if (nTypeCode == REG_DWORD_BIG_ENDIAN) { lpszDataType = TEXT("REG_DWORD_BIG_ENDIAN"); }
 	else if (nTypeCode == REG_LINK) { lpszDataType = TEXT("REG_LINK"); }
-	// RESOURCES
+	else if (nTypeCode == REG_MULTI_SZ) { lpszDataType = TEXT("REG_MULTI_SZ"); }
 	else if (nTypeCode == REG_RESOURCE_LIST) { lpszDataType = TEXT("REG_RESOURCE_LIST"); }
 	else if (nTypeCode == REG_FULL_RESOURCE_DESCRIPTOR) { lpszDataType = TEXT("REG_FULL_RESOURCE_DESCRIPTOR"); }
 	else if (nTypeCode == REG_RESOURCE_REQUIREMENTS_LIST) { lpszDataType = TEXT("REG_RESOURCE_REQUIREMENTS_LIST"); }
+	else if (nTypeCode == REG_QWORD) { lpszDataType = TEXT("REG_QWORD"); }
 	return lpszDataType;
 }
 
@@ -447,7 +437,7 @@ LPTSTR ParseValueData(LPBYTE lpData, PDWORD lpcbData, DWORD nTypeCode)
 		DWORD cbData;
 		size_t cchMax;
 		size_t cchActual;
-		cbData = lpcbData;
+		cbData = *lpcbData;
 		switch (nTypeCode) 	{
 
 		// Process the three different string types (normal, expanded and multi)
@@ -547,18 +537,12 @@ LPTSTR ParseValueData(LPBYTE lpData, PDWORD lpcbData, DWORD nTypeCode)
 // ----------------------------------------------------------------------
 LPTSTR TransformValueData(LPBYTE lpData, PDWORD lpcbData, DWORD nConversionType)
 {
-	LPTSTR lpszValueDataIsNULL = TEXT("(NULL!)");
+	LPTSTR lpszValueDataIsNULL = TEXT("NULL");
 	LPTSTR lpszValueData;
 	LPDWORD lpDword;
 	LPQWORD lpQword;
 	DWORD nDwordCpu;
 	
-#if 1 == __LITTLE_ENDIAN__
-	// no REG_QWORD_BIG_ENDIAN yet
-#elif
-	QWORD nQwordCpu;
-#endif
-
 	lpszValueData = NULL;
 	lpDword = NULL;
 	lpQword = NULL;
@@ -567,7 +551,8 @@ LPTSTR TransformValueData(LPBYTE lpData, PDWORD lpcbData, DWORD nConversionType)
 	if (NULL == lpData) 
 	{
 		lpszValueData = MYALLOC((_tcslen(lpszValueDataIsNULL) + 1) * sizeof(TCHAR));
-		_tcscpy(lpszValueData, lpszValueDataIsNULL);
+		//_tcscpy(lpszValueData, lpszValueDataIsNULL);
+		_tcscpy_s(lpszValueData, (_tcslen(lpszValueDataIsNULL) + 1) * sizeof(TCHAR), lpszValueDataIsNULL);
 	}
 	else 
 	{
@@ -577,41 +562,36 @@ LPTSTR TransformValueData(LPBYTE lpData, PDWORD lpcbData, DWORD nConversionType)
 		size_t cchString;
 		size_t cchActual;
 		LPTSTR lpszSrc;
-		LPTSTR lpszDst;
+		LPTSTR lpszDst; 
 
-		cbData = lpcbData;
+		cbData = *lpcbData;
 
 		switch (nConversionType) {
-		case REG_SZ:
+		case REG_SZ: 			
 			// A normal NULL termination string
-		case REG_EXPAND_SZ:
-			// A NULL terminated string that contains unexpanded references to 
-			// environment variables (e.g., "%PATH%")
-			// Process and output in the following format:
-			// "<string>"\0
-			lpszValueData = MYALLOC0(((1 + 2) * sizeof(TCHAR)) + cbData);
-			// Add a quote to start of string
-			_tcscpy(lpszValueData, TEXT("\""));
+			lpszValueData = MYALLOC0(sizeof(TCHAR) + cbData);
 			if (NULL != lpData) {
 				memcpy(lpszValueData, lpData, cbData);
 			}
-			// Add a quote to end of string
-			_tcscat(lpszValueData, TEXT("\""));
+			break;
+
+		case REG_EXPAND_SZ:
+			// A NULL terminated string that contains unexpanded references to environment variables (e.g., "%PATH%")
+			// Process and output in the following format: "<string>"\0
+			lpszValueData = MYALLOC0(sizeof(TCHAR) + cbData);
+			if (NULL != lpData) {
+				memcpy(lpszValueData, lpData, cbData);
+			}
 			break;
 
 		case REG_MULTI_SZ:
-			// Registry type that stores multiple strings
-			// Process and output in the following format:
-			// "<string>", "<string>", "<string>", ...\0
+			// A sequence of null-terminated strings, terminated by an empty string (\0).
+			// Process and output in the following format: "<string>", "<string>", "<string>", ...\0
 			nStringBufferSize = AdjustBuffer(&lpStringBuffer, nStringBufferSize, 10 + (2 * cbData), 1024);
 			ZeroMemory(lpStringBuffer, nStringBufferSize);
 			lpszDst = lpStringBuffer;
 
-			// Add initial quote mark for first string and increase destination size
-			_tcscpy(lpszDst, TEXT("\""));
-			lpszDst += 1;
 			cchActual = 0;
-
 			// Only process if the actual value data is not NULL
 			if (NULL != lpData) 
 			{
@@ -621,18 +601,19 @@ LPTSTR TransformValueData(LPBYTE lpData, PDWORD lpcbData, DWORD nConversionType)
 				while ((cchToGo > 0) && (*lpszSrc)) {
 					if (0 != cchActual) 
 					{
-						// Add: quote comma space quote (", ") to separate strings
-						_tcscpy(lpszDst, TEXT("\", \""));
-						// Increase the count by 4
-						lpszDst += 4;
-						cchActual += 4;
+						// Add comma (",") to separate strings
+						//_tcscpy(lpszDst, TEXT(","));
+						_tcscpy_s(lpszDst, 2 * sizeof(TCHAR), TEXT(","));
+						// Increase the count by 1 to account for comma
+						lpszDst += 1;
+						cchActual += 1;
 					}
 					cchString = _tcsnlen(lpszSrc, cchToGo);
 					_tcsncpy(lpszDst, lpszSrc, cchString);
 					lpszDst += cchString;
 					cchActual += cchString;
 
-					// Decrease count for processed, if count to go is 0 then we are done
+					// Decrease count for processed, if count ToGo is 0 then we are done
 					cchToGo -= cchString;
 					if (cchToGo == 0) {
 						break;
@@ -643,64 +624,46 @@ LPTSTR TransformValueData(LPBYTE lpData, PDWORD lpcbData, DWORD nConversionType)
 					cchToGo -= 1;
 				}
 			}
-
-			// Add in the closing quote mark
-			_tcscpy(lpszDst, TEXT("\""));
-			cchActual += 3 + 1 + 1;
+			cchActual += 3 + 1;
 
 			// Allocate memory for the constructed string and copy to value data string
 			lpszValueData = MYALLOC(cchActual * sizeof(TCHAR));
 			_tcscpy(lpszValueData, lpStringBuffer);
+			//_tcscpy_s(lpszValueData, cchActual * sizeof(TCHAR), lpStringBuffer);
+
 			break;
 
-#if 1 == __LITTLE_ENDIAN__
 		case REG_DWORD_BIG_ENDIAN:
-#elif
-		case REG_DWORD_LITTLE_ENDIAN:
-#endif
-			// convert DWORD with different endianness
+			// convert DWORD big endian
 			lpDword = &nDwordCpu;
 			for (ibCurrent = 0; ibCurrent < sizeof(DWORD); ibCurrent++) {
 				((LPBYTE)&nDwordCpu)[ibCurrent] = lpData[sizeof(DWORD) - 1 - ibCurrent];
 			}
+			// Output format: "0xXXXXXXXX\0"
+			lpszValueData = MYALLOC0((3 + 8 + 1) * sizeof(TCHAR));
+			if (NULL != lpData) {
+				//_sntprintf(lpszValueData, (3 + 8 + 1), TEXT("0x%08X\0"), *lpDword);
+				_sntprintf_s(lpszValueData, (3 + 8 + 1) * sizeof(TCHAR), (3 + 8 + 1), TEXT("0x%08X\0"), *lpDword);
+			}
+			break;
 
-#if 1 == __LITTLE_ENDIAN__
-		case REG_DWORD_LITTLE_ENDIAN:
-#elif
-		case REG_DWORD_BIG_ENDIAN:
-#endif
-			// native DWORD that can be displayed as DWORD
+		case REG_DWORD: 
+			// A native DWORD that can be displayed as DWORD
+			// This includes REG_DWORD_LITTLE_ENDIAN (the same as DWORD)
 			if (NULL == lpDword) {
 				lpDword = (LPDWORD)lpData;
 			}
 			// Output format: "0xXXXXXXXX\0"
-			lpszValueData = MYALLOC0((3 + 8 + 1) * sizeof(TCHAR));
+			lpszValueData = MYALLOC0((2 + 8 + 1) * sizeof(TCHAR));
 			if (NULL != lpData) {
-				_sntprintf(lpszValueData, (3 + 8 + 1), TEXT("0x%08X\0"), *lpDword);
+				_sntprintf(lpszValueData, (2 + 8 + 1), TEXT("0x%08X\0"), *lpDword);
+				//_sntprintf_s(lpszValueData, (2 + 8 + 1) * sizeof(TCHAR), (2 + 8 + 1), TEXT("0x%08X\0"), *lpDword);
 			}
 			break;
 
-#if 1 == __LITTLE_ENDIAN__
-			//case REG_QWORD_BIG_ENDIAN:
-#elif
-		case REG_QWORD_LITTLE_ENDIAN:
-#endif
-#if 1 == __LITTLE_ENDIAN__
-			// no REG_QWORD_BIG_ENDIAN yet
-#elif
-			// convert QWORD with different endianness
-			lpQword = &nQwordCpu;
-			for (ibCurrent = 0; ibCurrent < sizeof(QWORD); i++) {
-				((LPBYTE)&nQwordCpu)[ibCurrent] = lpVC->lpValueData[sizeof(QWORD) - ibCurrent - ibCurrent];
-			}
-#endif
-
-#if 1 == __LITTLE_ENDIAN__
-		case REG_QWORD_LITTLE_ENDIAN:
-#elif
-			//case REG_QWORD_BIG_ENDIAN:
-#endif
-			// native QWORD that can be displayed as QWORD
+		case REG_QWORD:
+			// A native QWORD that can be displayed as QWORD
+			// This includes REG_QWORD_LITTLE_ENDIAN (which is the same as QWORD)
 			if (NULL == lpQword) {
 				lpQword = (LPQWORD)lpData;
 			}
@@ -708,17 +671,14 @@ LPTSTR TransformValueData(LPBYTE lpData, PDWORD lpcbData, DWORD nConversionType)
 			lpszValueData = MYALLOC0((3 + 16 + 1) * sizeof(TCHAR));
 			if (NULL != lpData) {
 				_sntprintf(lpszValueData, (3 + 16 + 1), TEXT("0x%016I64X\0"), *lpQword);
-
 			}
 			break;
 
 		default:
-			// Default display method: Present value as hex bytes
-			// Output format: "[xx][xx]...[xx]\0"
+			// Default processing and display method: Present value as hex bytes
+			// Output format: "[XX][XX]...[XX]\0"
 			lpszValueData = MYALLOC0((1 + (cbData * 3) + 1) * sizeof(TCHAR));
-			_tcscpy(lpszValueData, TEXT("")); // FIX ME!
 			for (ibCurrent = 0; ibCurrent < cbData; ibCurrent++) {
-				// Format: "0100048030"
 				_sntprintf(lpszValueData + (ibCurrent * 2), 2, TEXT("%02X\0"), *(lpData + ibCurrent));
 			}
 		}

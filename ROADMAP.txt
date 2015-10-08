@@ -7,12 +7,12 @@ version 1.1.0 (November 2015)
     sample-hives - include XML output for each hive file in the sample-hives directory
     Readme - add information about the XML for each sample-hive
     sample-hives - add in a snippet XML example of the CellXML output format
-    TransformData - fix arguments involving pointers
-    Remove endianness - unneeded as all target system are little endian
-    Registry data types:
-        Remove REG_DWORD_LITTLE_ENDIAN (this is just a DWORD)
-        Remove REG_QWORD_LITTLE_ENDIAN (this is just a QWORD)
-        Check that REG_NONE is outputing in binary (same as REG_BINARY)
+    DONE	TransformData - fix arguments involving pointers
+    DONE	Remove endianness - unneeded as all target system are little endian
+    DONE	Registry data types:
+        DONE	Remove REG_DWORD_LITTLE_ENDIAN (this is just a DWORD)
+        DONE	Remove REG_QWORD_LITTLE_ENDIAN (this is just a QWORD)
+        DONE	Check that REG_NONE is outputing in binary (same as REG_BINARY)
     Test on more Registry hive files from different Windows versions:
         Windows Vista
         Windows 7
