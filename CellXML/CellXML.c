@@ -702,6 +702,11 @@ LPTSTR determineRootKey(LPTSTR lpszHiveFileName)
 	// Open the hive file based on user passed file name
 	HANDLE hFileHive = CreateFile(lpszHiveFileName, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
+    // THIS FUNCTION NEEDS TO BE REWRITTEN
+    // Open hive file to rootkey, or first HBIN location
+    // Seek to rootkey start, determine rootkey length
+    // Fetch the rootkey then return
+
 	// Get the Hive file magic number (regf)
 	char szRegMagicNumber[5];
 	ReadFile(hFileHive, &szRegMagicNumber, 4 * sizeof(char), &NBW, NULL);
