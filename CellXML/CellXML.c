@@ -68,33 +68,6 @@ HANDLE hHeap;					// HiveXML heap
 LPTSTR lpStringBuffer;
 size_t nStringBufferSize;
 
-// ----------------------------------------------------------------------
-// Windows Registry hbin structure
-// ----------------------------------------------------------------------
-struct _HBIN
-{
-	DWORD cSize;			// 4 bytes - Size (a signed integer)
-	char nodeID[3];	        // 2 bytes - NodeID ("nk" or 0x6B6E)
-	char nodeType[3];	    // 2 bytes - Node type (0x2C (root) or 0x20 (normal))
-	FILETIME ftWriteTime;	// 8 bytes - Last Write Time
-	DWORD cOffsetParentKey;	// 4 bytes - Offset - parent key
-    DWORD cSubKeyCount;	    // 4 bytes - Number of subkeys
-    DWORD cOffsetSubKeys;   // 4 bytes - Offset - to list of subkeys
-    DWORD cValueCount;	    // 4 bytes - Number of values
-    DWORD cOffsetValues;    // 4 bytes - Offset - to list of values
-    DWORD cOffestSecID;	    // 4 bytes - Offset - to security identifier record
-	DWORD cClass;			// 4 bytes - 
-	DWORD cRandom;			// 4 bytes - 
-	DWORD cMaxClassLen;		// 4 bytes - 
-	DWORD cMaxValueNameLen;	// 4 bytes - 
-	DWORD cMaxValueDataLen; // 4 bytes - 
-	DWORD cWorkVar;			// 4 bytes - 
-    int keyNameLength;      // 2 bytes - Length of key name
-	int keyClassLength;		// 2 bytes - 
-    LPTSTR lpszkeyName;     // Key name with unspecified length
-};
-typedef struct _HBIN HBIN, FAR *LPHBIN;
-
 //-----------------------------------------------------------------
 // WinHiveXML wmain function
 //-----------------------------------------------------------------
@@ -125,7 +98,7 @@ int wmain(DWORD argc, TCHAR *argv[])
 		// Scan the command line arguments and set booleans
 		for (DWORD i = 0; i < argc; i++)
 		{
-			// Determine if we are creating an APXML profile
+			// Determine rootkey fetching method
 			if (_tcscmp(argv[i], _T("-a")) == 0) {
 				tryGetRootKey = TRUE;
 			}
@@ -289,7 +262,6 @@ int EnumerateKeys(ORHKEY OffKey, LPWSTR szKeyName)
 	_sntprintf_s(lpszModifiedTime, 21 + 1 * sizeof(TCHAR), 21, TEXT("%i-%02i-%02iT%02i:%02i:%02iZ"),
 		st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond);
 
-	
 	// We have all the Registry key details, write out using DFXML/RegXML syntax
 	printf("  <cellobject>\n");
 	printf("    <cellpath>%ws</cellpath>\n", szKeyName);

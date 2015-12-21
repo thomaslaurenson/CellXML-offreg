@@ -2,11 +2,12 @@ version 1.1.0 (November 2015)
     DONE    Help menu - fix (-h and /?) to display help menu
     DONE    Help menu - fix old HiveXML naming convention in arguments
     DONE    Add information about sample hive files and license (Digital Corpora)
-    Readme - add information of CellXML output structure
     Readme - add more detailed information about compilation
     sample-hives - include XML output for each hive file in the sample-hives directory
     Readme - add information about the XML for each sample-hive
-    sample-hives - add in a snippet XML example of the CellXML output format
+    Readme - add in a snippet XML example of the CellXML output format for:
+        keys
+        values
     DONE	TransformData - fix arguments involving pointers
     DONE	Remove endianness - unneeded as all target system are little endian
     DONE	Registry data types:
@@ -21,7 +22,7 @@ version 1.1.0 (November 2015)
     After done: create GitHub release 1.1.0
     
 
-version 1.2.0 (December 2015)
+version 1.2.0 (January 2016)
     Fix (update) depreciated and unsafe string functions
     Update VS project to:
         Create 32 and 64 bit builds
