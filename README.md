@@ -5,18 +5,48 @@ CellXML-offreg is a simple portable Windows application that parses the binary s
 
 The general usage format for CellXML-offreg is:
 
-`CellXML-offreg-1.0.0.exe [options] hive-file`
+`CellXML-offreg-1.1.0.exe [options] hive-file`
 
 The following list provides some examples of CellXML usage:
 
 1. Print Registry hive file to standard output (stdout):
-  * `CellXML-offreg-1.0.0.exe hive-file`
+  * `CellXML-offreg-1.1.0.exe hive-file`
 2. Manually specify the hive root key:
-  * `CellXML-offreg-1.0.0.exe -r $$$PROTO.HIV hive-file`
+  * `CellXML-offreg-1.1.0.exe -r $$$PROTO.HIV hive-file`
 3. Automatically determine hive root key (experimental):
-  * `CellXML-offreg-1.0.0.exe -a hive-file`
+  * `CellXML-offreg-1.1.0.exe -a hive-file`
 4. Direct standard output to an XML file:
-  * `CellXML-offreg-1.0.0.exe hive-file > output.xml`
+  * `CellXML-offreg-1.1.0.exe hive-file > output.xml`
+  
+## CellXML-offreg Output
+
+By default, CellXML-offreg parses an offline Registry hive file and outputs the resultant RegXML syntax to standard output (stdout). The RegXML output is an XML representation of all Registry entries (keys and values) in the Regitry hive file. 
+
+The following CellObject represents a Registry key from a SOFTWARE hive file:
+
+```
+  <cellobject>
+    <cellpath>$$$PROTO.HIV\Avg\AVG IDS\IDS</cellpath>
+    <name_type>k</name_type>
+    <mtime>2009-11-09T03:39:28Z</mtime>
+    <alloc>1</alloc>
+  </cellobject>
+```
+
+The following CellObject represents a Registry value from a SOFTWARE hive file:
+
+```
+ <cellobject>
+    <cellpath>$$$PROTO.HIV\Avg\AVG IDS\IDS\InstallDir</cellpath>
+    <basename>InstallDir</basename>
+    <name_type>v</name_type>
+    <mtime>2009-11-09T03:39:28Z</mtime>
+    <alloc>1</alloc>
+    <data_type>REG_SZ</data_type>
+    <data>C:\Program Files\AVG\AVG9\Identity Protection</data>
+    <raw_data>43 00 3A 00 5C 00 50 00 ... 69 00 6F 00 6E 00 00 00</raw_data>
+  </cellobject>
+```  
 
 ## Offline Registry Library and offreg.dll
 
